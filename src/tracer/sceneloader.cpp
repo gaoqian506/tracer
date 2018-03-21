@@ -13,10 +13,18 @@
 
 #include "tracer/sceneloader.h"
 
+
 SceneLoader::SceneLoader() {
 }
 
 
 SceneLoader::~SceneLoader() {
+}
+
+
+void SceneLoader::load(std::string objfile) {
+    
+    
+    
 }
 

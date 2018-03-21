@@ -23,7 +23,8 @@ Tracer::~Tracer() {
 
 
 void Tracer::trace(std::string objfile) {
-    objfile = "aaa";
+    loader.load(objfile);
+//    objfile = "aaa";
     
 }
 

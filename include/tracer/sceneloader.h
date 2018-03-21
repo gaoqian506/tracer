@@ -14,10 +14,14 @@
 #ifndef SCENELOADER_H
 #define SCENELOADER_H
 
+#include <string>
+
 class SceneLoader {
 public:
     SceneLoader();
     virtual ~SceneLoader();
+    
+    void load(std::string objfile);
 private:
 
 };
