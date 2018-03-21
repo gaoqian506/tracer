@@ -28,9 +28,16 @@ public:
     virtual ~Tracer();
     
     void trace(std::string objfile);
+    void load(std::string objfile);
+    void run();
 private:
     
     void bake(const OptiXMesh& mesh);
+    void launch();
+    void createContext();
+    void glutInitialize();
+    optix::Buffer getOutputBuffer();
+    static void glutDisplay();
     
     //SceneLoader loader;
     optix::Context context_;

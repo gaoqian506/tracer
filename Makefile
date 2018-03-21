@@ -14,6 +14,7 @@ LIBS += -loptix -optix_prime
 
 LIBS += -L$(OPTIX_ROOT)/SDK-precompiled-samples
 LIBS += -lsutil_sdk
+LIBS += -lglut -lGL
 
 	
 RPATH = -Wl,-rpath=$(OPTIX_ROOT)/lib64

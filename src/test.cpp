@@ -8,7 +8,9 @@
 int main(int argc, char** argv) {
     
     Tracer tracer;
-    tracer.trace("data/obj/triangle.obj");
+    tracer.load("data/obj/triangle.obj");
+    tracer.run();
+    //tracer.trace("data/obj/triangle.obj");
     return 0;
 
 
