@@ -15,24 +15,31 @@ LIBS += -loptix -optix_prime
 LIBS += -L$(OPTIX_ROOT)/SDK-precompiled-samples
 LIBS += -lsutil_sdk
 
-SRCS=$(wildcard  src/tracer/*.cpp)
-OBJS=$(SRCS:%.cpp=%.o)
 	
 RPATH = -Wl,-rpath=$(OPTIX_ROOT)/lib64
 RPATH += -Wl,-rpath=$(OPTIX_ROOT)/SDK-precompiled-samples
 
+SRCS=$(wildcard  src/tracer/*.cpp)
+OBJS=$(SRCS:%.cpp=%.o)
+
+CUS=$(wildcard  ptx/*.cu)
+PTXS=$(CUS:%.cu=%.ptx)
 
 
-all : src/test
+
+all : src/test $(PTXS)
 
 src/test : $(OBJS) src/test.cpp
-	g++ -g  src/test.cpp $(OBJS)  $(INCLUDE_DIR) $(LIBS) $(RPATH) -o $@
+	g++ -g  src/test.cpp $(OBJS) $(INCLUDE_DIR) $(LIBS) $(RPATH) -o $@
 	
 %.o : %.cpp
 	g++ -c -g $< $(INCLUDE_DIR) $(LIBS) $(RPATH) -o $@
 	
+%.ptx : %.cu
+	$(CUDA_ROOT)/bin/nvcc -ptx -Wno-deprecated-gpu-targets $< -o $@ $(INCLUDE_DIR)
+	
 clean:
-	rm -f $(OBJS) src/test
+	rm -f $(OBJS) $(PTXS) src/test
 	
 	
 #all : trace

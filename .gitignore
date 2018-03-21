@@ -1,6 +1,7 @@
 
 nbproject
 test
+*.ptx
 
 # Prerequisites
 *.d

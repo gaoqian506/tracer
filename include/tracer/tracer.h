@@ -20,6 +20,7 @@
 #include <OptiXMesh.h>
 
 
+
 class Tracer {
     
 public:
@@ -33,6 +34,8 @@ private:
     
     //SceneLoader loader;
     optix::Context context_;
+    int width_;
+    int height_;
 
 };
 
