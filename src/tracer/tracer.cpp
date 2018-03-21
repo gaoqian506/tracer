@@ -14,7 +14,12 @@
 #include "tracer/tracer.h"
 
 
+
+
+
 Tracer::Tracer() {
+    context_ = optix::Context::create();
+    context_->setRayTypeCount( 2 );
 }
 
 
@@ -23,8 +28,26 @@ Tracer::~Tracer() {
 
 
 void Tracer::trace(std::string objfile) {
-    loader.load(objfile);
-//    objfile = "aaa";
+    
+    OptiXMesh mesh;
+    mesh.context = context_;
+    loadMesh(objfile, mesh);
+    bake(mesh);
+   
+}
+
+void Tracer::bake(const OptiXMesh& mesh) {
+    
+    
     
 }
 
+
+
+/*
+ 
+     
+    //   loader.load(objfile);
+//    objfile = "aaa";
+ 
+ */

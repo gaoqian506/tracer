@@ -15,7 +15,9 @@
 #define TRACER_H
 
 #include <string>
-#include "sceneloader.h"
+//#include "sceneloader.h"
+#include <optixu/optixpp_namespace.h>
+#include <OptiXMesh.h>
 
 
 class Tracer {
@@ -26,7 +28,11 @@ public:
     
     void trace(std::string objfile);
 private:
-    SceneLoader loader;
+    
+    void bake(const OptiXMesh& mesh);
+    
+    //SceneLoader loader;
+    optix::Context context_;
 
 };
 

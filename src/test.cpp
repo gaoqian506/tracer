@@ -8,7 +8,7 @@
 int main(int argc, char** argv) {
     
     Tracer tracer;
-    tracer.trace("scene-name.obj");
+    tracer.trace("data/obj/triangle.obj");
     return 0;
 
 
