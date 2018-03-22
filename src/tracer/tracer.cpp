@@ -150,6 +150,10 @@ void Tracer::run() {
     
 }
 
+void Tracer::show() {
+    
+}
+
 void Tracer::bake(const OptiXMesh& mesh) {
     
 //    updateCamera();

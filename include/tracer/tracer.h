@@ -30,6 +30,7 @@ public:
     void trace(std::string objfile);
     void load(std::string objfile);
     void run();
+    void show();
 private:
     
     void bake(const OptiXMesh& mesh);

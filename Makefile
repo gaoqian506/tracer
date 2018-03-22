@@ -20,29 +20,35 @@ LIBS += -lglut -lGL
 RPATH = -Wl,-rpath=$(OPTIX_ROOT)/lib64
 RPATH += -Wl,-rpath=$(OPTIX_ROOT)/SDK-precompiled-samples
 
-SRCS=$(wildcard  src/tracer/*.cpp)
-OBJS=$(SRCS:%.cpp=%.o)
+SRCS = $(wildcard  src/tracer/*.cpp)
+OBJS = $(SRCS:%.cpp=%.o)
 
-CUS=$(wildcard  ptx/*.cu)
-PTXS=$(CUS:%.cu=%.ptx)
+MAINS = $(wildcard  src/*.cpp)
+TARGETS = $(MAINS:%.cpp=%)
+
+CUS = $(wildcard  ptx/*.cu)
+PTXS = $(CUS:%.cu=%.ptx)
 
 
 
-all : src/test $(PTXS)
+all : $(OBJS) $(TARGETS) $(PTXS)
 
-src/test : $(OBJS) src/test.cpp
-	g++ -g  src/test.cpp $(OBJS) $(INCLUDE_DIR) $(LIBS) $(RPATH) -o $@
+$(TARGETS) : % : %.cpp
+	g++ -g $< $(OBJS) $(INCLUDE_DIR) $(LIBS) $(RPATH) -o $@
 	
 %.o : %.cpp
 	g++ -c -g $< $(INCLUDE_DIR) $(LIBS) $(RPATH) -o $@
 	
 %.ptx : %.cu
-	$(CUDA_ROOT)/bin/nvcc -ptx -Wno-deprecated-gpu-targets $< -o $@ $(INCLUDE_DIR)
+	$(CUDA_ROOT)/bin/nvcc -ptx $(INCLUDE_DIR) $< -Wno-deprecated-gpu-targets  -o $@ 
 	
 clean:
-	rm -f $(OBJS) $(PTXS) src/test
+	rm -f $(OBJS) $(PTXS) $(TARGETS)
 	
 	
+
+#-Wno-deprecated-gpu-targets 	
+#	 src/test.cpp
 #all : trace
 #
 #trace : trace.o
@@ -53,3 +59,7 @@ clean:
 #	
 #clean:
 #	rm -f trace.o trace
+
+#	@echo --------OBJS--------
+#	@echo $(OBJS)
+#	@echo $(TARGETS)
